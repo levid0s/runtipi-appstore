@@ -1,0 +1,35 @@
+{
+  "name": "PGAdmin",
+  "id": "pgadmin",
+  "available": true,
+  "short_desc": "PGAdmin 4",
+  "author": "me",
+  "port": 8641,
+  "categories": ["development"],
+  "description": "Postgres admin",
+  "tipi_version": 1,
+  "version": "v9.3.0",
+  "source": "https://github.com/pgadmin-org/pgadmin4",
+  "exposable": true,
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1724134338800,
+  "updated_at": 1724134338800,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Email",
+      "max": 50,
+      "min": 3,
+      "required": true,
+      "env_variable": "PGADMIN_DEFAULT_EMAIL"
+    },
+    {
+      "type": "password",
+      "label": "Password",
+      "max": 50,
+      "min": 3,
+      "required": true,
+      "env_variable": "PGADMIN_DEFAULT_PASSWORD"
+    }
+  ]  
+}

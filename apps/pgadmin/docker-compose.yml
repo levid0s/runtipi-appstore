@@ -1,0 +1,37 @@
+services:
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:9.3.0
+    restart: unless-stopped
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - ${APP_PORT}:80
+    networks:
+      - tipi_main_network
+    labels:
+      traefik.enable: true
+      traefik.http.middlewares.pgadmin-web-redirect.redirectscheme.scheme: https
+      traefik.http.services.pgadmin.loadbalancer.server.port: 80
+      # Web
+      traefik.http.routers.pgadmin-insecure.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.pgadmin-insecure.entrypoints: web
+      traefik.http.routers.pgadmin-insecure.service: pgadmin
+      traefik.http.routers.pgadmin-insecure.middlewares: pgadmin-web-redirect
+      # Websecure
+      traefik.http.routers.pgadmin.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.pgadmin.entrypoints: websecure
+      traefik.http.routers.pgadmin.service: pgadmin
+      traefik.http.routers.pgadmin.tls.certresolver: myresolver
+      # Local domain
+      traefik.http.routers.pgadmin-local-insecure.rule: Host(`pgadmin.${LOCAL_DOMAIN}`)
+      traefik.http.routers.pgadmin-local-insecure.entrypoints: web
+      traefik.http.routers.pgadmin-local-insecure.service: pgadmin
+      traefik.http.routers.pgadmin-local-insecure.middlewares: pgadmin-web-redirect
+      # Local domain secure
+      traefik.http.routers.pgadmin-local.rule: Host(`pgadin.${LOCAL_DOMAIN}`)
+      traefik.http.routers.pgadmin-local.entrypoints: websecure
+      traefik.http.routers.pgadmin-local.service: pgadmin
+      traefik.http.routers.pgadmin-local.tls: true
+      runtipi.managed: true
