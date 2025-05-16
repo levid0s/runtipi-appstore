@@ -10,7 +10,7 @@
   "port": 8641,
   "categories": ["development"],
   "description": "Postgres admin",
-  "tipi_version": 83,
+  "tipi_version": 84,
   "version": "v9.3.0",
   "source": "https://github.com/pgadmin-org/pgadmin4",
   "supported_architectures": ["arm64", "amd64"],
